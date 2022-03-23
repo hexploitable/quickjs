@@ -1729,11 +1729,10 @@ static size_t js_def_malloc_usable_size(const void *ptr)
     return _msize((void *)ptr);
 #elif defined(EMSCRIPTEN)
     return 0;
-#elif defined(__linux__)
+#elif defined(HAVE_MALLOC_USABLE_SIZE)
     return malloc_usable_size((void *)ptr);
 #else
-    /* change this to `return 0;` if compilation fails */
-    return malloc_usable_size((void *)ptr);
+    return 0;
 #endif
 }
 
