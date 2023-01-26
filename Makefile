@@ -39,6 +39,9 @@ CONFIG_LTO=y
 # installation directory
 PREFIX?=/usr/local
 
+# avoid stack overflow on recursive calls
+# CONFIG_STACK_CHECK=y
+# CONFIG_STACK_SIZE_MAX=0xffff
 # use the gprof profiler
 #CONFIG_PROFILE=y
 # use address sanitizer
@@ -112,6 +115,12 @@ ifdef CONFIG_WERROR
 CFLAGS+=-Werror
 endif
 DEFINES:=-D_GNU_SOURCE -DCONFIG_VERSION=\"$(shell cat VERSION.txt)\"
+ifdef CONFIG_STACK_CHECK
+DEFINES+=-DCONFIG_STACK_CHECK=1
+ifdef CONFIG_STACK_SIZE_MAX
+DEFINES+=-DCONFIG_STACK_SIZE_MAX=$(CONFIG_STACK_SIZE_MAX)
+endif
+endif
 ifdef CONFIG_BIGNUM
 DEFINES+=-DCONFIG_BIGNUM
 endif
