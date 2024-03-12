@@ -7,6 +7,10 @@ cc = meson.get_compiler('c')
 have_msvc = cc.get_id() == 'msvc'
 have_emscripten = cc.get_define('EMSCRIPTEN') != ''
 
+if meson.is_subproject() and not have_msvc
+  add_project_arguments('-w', language: 'c')
+endif
+
 threads_dep = dependency('threads')
 dl_dep = cc.find_library('dl', required: false)
 m_dep = cc.find_library('m', required: false)
