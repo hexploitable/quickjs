@@ -22,6 +22,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+#ifdef _MSC_VER
+#define _UCRT_NOISY_NAN
+#endif
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdarg.h>
