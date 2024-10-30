@@ -21,3 +21,9 @@ option('stack_check',
   value: 'auto',
   description: 'Enable stack limitation'
 )
+
+option('bitcode',
+  type: 'boolean',
+  value: false,
+  description: 'Enable bitcode for quickjs'
+)

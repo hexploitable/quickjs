@@ -8,7 +8,13 @@ have_msvc = cc.get_id() == 'msvc'
 have_emscripten = cc.get_define('EMSCRIPTEN') != ''
 
 if meson.is_subproject() and not have_msvc
-  add_project_arguments('-w', language: 'c')
+  proj_args = ['-w']
+  enable_bitcode = get_option('bitcode')
+  if enable_bitcode
+    message('Embedding Bitcode in quickJS sub-dependency')
+    proj_args += ['-fembed-bitcode']
+  endif
+  add_project_arguments(proj_args, language: 'c')
 endif
 
 threads_dep = dependency('threads')
